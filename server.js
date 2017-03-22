@@ -1,9 +1,16 @@
-// FIXME: Feel free to remove this :-)
-console.log('\n\nGood Luck! 😅\n\n');
-
-const server = require('socket.io')();
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const firstTodos = require('./data');
 const Todo = require('./todo');
+
+console.log('Waiting for clients to connect');
+server.listen(3030);
+
+app.get('/', function (req, res) {
+    console.log('hit')
+  res.sendfile(__dirname + '/index.html');
+});
 
 server.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
@@ -36,6 +43,3 @@ server.on('connection', (client) => {
     // Send the DB downstream on connect
     reloadTodos();
 });
-
-console.log('Waiting for clients to connect');
-server.listen(3003);
