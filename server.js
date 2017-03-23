@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 
 app.use(express.static(__dirname));
 
-server.on('connection', (client) => {
+io.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
     // Parse all default Todo's from db
 
@@ -27,7 +27,7 @@ server.on('connection', (client) => {
 
     // Sends a message to the client to reload all todos
     const reloadTodos = () => {
-        server.emit('load', DB);
+        io.emit('load', DB);
     }
 
     // Accepts when a client makes a new todo
