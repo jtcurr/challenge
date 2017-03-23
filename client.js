@@ -13,7 +13,7 @@ function add() {
     });
     // Clear the input
     input.value = '';
-    // TODO: refocus the element
+    document.getElementById("todo-list").innerHTML = "";
 }
 
 function render(todo) {
