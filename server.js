@@ -1,4 +1,5 @@
 const app = require('express')();
+const express = require('express')
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const firstTodos = require('./data');
@@ -11,6 +12,8 @@ server.listen(3030);
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
+
+app.use(express.static(__dirname));
 
 server.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
