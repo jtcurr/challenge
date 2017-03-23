@@ -2,14 +2,14 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const firstTodos = require('./data');
-const Todo = require('./todo');
+let Todo = require('./todo');
+Todo = Todo.Todo;
 
 console.log('Waiting for clients to connect');
 server.listen(3030);
 
 app.get('/', function (req, res) {
-    console.log('hit')
-  res.sendfile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 server.on('connection', (client) => {

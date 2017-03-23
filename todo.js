@@ -1,5 +1,3 @@
-module.export = class Todo {
-    constructor(title='') {
-        this.title = title
-    }
+module.exports.Todo = function (title) {
+    this.title = title
 }
