@@ -51,6 +51,10 @@ io.on('connection', (client) => {
         io.emit('new', DB[DB.length-1]);
     });
 
+    client.on('remove', (item) => {
+        
+    })
+
     // Send the DB downstream on connect
     reloadTodos();
 });
