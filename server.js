@@ -2,6 +2,7 @@ const app = require('express')();
 const express = require('express')
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const fs = require('fs');
 const firstTodos = require('./data');
 let Todo = require('./todo');
 Todo = Todo.Todo;
@@ -37,6 +38,16 @@ io.on('connection', (client) => {
 
         // Push this newly created todo to our database
         DB.push(newTodo);
+
+        let temp = JSON.stringify(DB);
+
+        fs.writeFile('data.json', temp, (err) => {
+            if(err) {
+                console.log('ERROR WRITING TO JSON', err)
+            } else {
+                console.log('Success')
+            }
+        })
 
         // Send the latest todos to the client
         // FIXME: This sends all todos every time, could this be more efficient?

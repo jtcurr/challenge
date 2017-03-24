@@ -5,6 +5,7 @@ const list = document.getElementById('todo-list');
 // This function adds a new todo from the input
 function add() {
     console.warn(event);
+    document.getElementById("todo-list").innerHTML = "";
     const input = document.getElementById('todo-input');
 
     // Emit the new todo as some data to the server
@@ -13,7 +14,6 @@ function add() {
     });
     // Clear the input
     input.value = '';
-    document.getElementById("todo-list").innerHTML = "";
 }
 
 function render(todo) {
