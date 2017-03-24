@@ -16,10 +16,23 @@ function add() {
 }
 
 function render(todo) {
-    const listItem = document.createElement('li');
+    let submitButton = document.createElement('button');
+    submitButton.id = todo.title;
+    let submitText = document.createTextNode('Done');
+    submitButton.appendChild(submitText);
+
+    let removeButton = document.createElement('button');
+    removeButton.id = todo.title;
+    let removeText = document.createTextNode('Remove');
+    removeButton.appendChild(removeText);
+
+    const listItem = document.createElement('div');
     const listItemText = document.createTextNode(todo.title);
     listItem.appendChild(listItemText);
+    list.append(submitButton);
+    list.append(removeButton);
     list.append(listItem);
+    list.append(document.createElement('br'))
 }
 
 // NOTE: These are listeners for events from the server
