@@ -5,7 +5,6 @@ const list = document.getElementById('todo-list');
 // This function adds a new todo from the input
 function add() {
     console.warn(event);
-    document.getElementById("todo-list").innerHTML = "";
     const input = document.getElementById('todo-input');
 
     // Emit the new todo as some data to the server
@@ -26,5 +25,11 @@ function render(todo) {
 // NOTE: These are listeners for events from the server
 // This event is for (re)loading the entire list of todos from the server
 server.on('load', (todos) => {
+    document.getElementById("todo-list").innerHTML = "";
     todos.forEach((todo) => render(todo));
 });
+
+// Reload new event from server
+server.on('new', (item) => {
+  render(item)
+})

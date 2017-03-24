@@ -39,9 +39,7 @@ io.on('connection', (client) => {
         // Push this newly created todo to our database
         DB.push(newTodo);
 
-        let temp = JSON.stringify(DB);
-
-        fs.writeFile('data.json', temp, (err) => {
+        fs.writeFile('data.json', JSON.stringify(DB), (err) => {
             if(err) {
                 console.log('ERROR WRITING TO JSON', err)
             } else {
@@ -50,8 +48,7 @@ io.on('connection', (client) => {
         })
 
         // Send the latest todos to the client
-        // FIXME: This sends all todos every time, could this be more efficient?
-        reloadTodos();
+        io.emit('new', DB[DB.length-1]);
     });
 
     // Send the DB downstream on connect
