@@ -22,7 +22,11 @@ function remove(val) {
 }
 
 function done(id) {
-    document.getElementById(id).style.color = 'green'
+    document.getElementById(id).style.color = 'green';
+}
+
+function completeAll() {
+    document.body.style.color = 'green';
 }
 
 function render(todo) {
