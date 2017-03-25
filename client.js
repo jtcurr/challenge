@@ -21,20 +21,24 @@ function remove(val) {
     })
 }
 
+function done(id) {
+    document.getElementById(id).style.color = 'green'
+}
+
 function render(todo) {
     let doneButton = document.createElement('button');
-    doneButton.id = todo.title;
+    doneButton.onclick = () => {done(todo.title)}
     let submitText = document.createTextNode('Done');
     doneButton.appendChild(submitText);
 
     let removeButton = document.createElement('button');
-    removeButton.id = todo.title;
     removeButton.onclick = () => {remove(todo)}
     let removeText = document.createTextNode('Remove');
     removeButton.appendChild(removeText);
 
     const listItem = document.createElement('div');
     const listItemText = document.createTextNode(todo.title);
+    listItem.id = todo.title;
     listItem.appendChild(listItemText);
     list.append(doneButton);
     list.append(removeButton);
