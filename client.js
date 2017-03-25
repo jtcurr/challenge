@@ -29,6 +29,10 @@ function completeAll() {
     document.body.style.color = 'green';
 }
 
+function deleteAll() {
+    server.emit('removeAll')
+}
+
 function render(todo) {
     let doneButton = document.createElement('button');
     doneButton.onclick = () => {done(todo.title)}

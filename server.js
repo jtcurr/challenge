@@ -21,7 +21,7 @@ io.on('connection', (client) => {
     // Parse all default Todo's from db
 
     // FIXME: DB is reloading on client refresh. It should be persistent on new client connections from the last time the server was run...
-    const DB = firstTodos.map((t) => {
+    let DB = firstTodos.map((t) => {
         // Form new Todo objects
         return new Todo(title=t.title);
     });
@@ -61,6 +61,12 @@ io.on('connection', (client) => {
               DB.splice(i, 1);
             }
         }
+        updateJSON();
+        reloadTodos();
+    })
+
+    client.on('removeAll', () => {
+        DB = [];
         updateJSON();
         reloadTodos();
     })
