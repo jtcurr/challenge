@@ -31,6 +31,16 @@ io.on('connection', (client) => {
         io.emit('load', DB);
     }
 
+    const updateJSON = () => {
+        fs.writeFile('data.json', JSON.stringify(DB), (err) => {
+            if(err) {
+                console.log('ERROR WRITING TO JSON', err)
+            } else {
+                console.log('Success')
+            }
+        })
+    }
+
     // Accepts when a client makes a new todo
     client.on('make', (t) => {
         // Make a new todo
@@ -39,20 +49,20 @@ io.on('connection', (client) => {
         // Push this newly created todo to our database
         DB.push(newTodo);
 
-        fs.writeFile('data.json', JSON.stringify(DB), (err) => {
-            if(err) {
-                console.log('ERROR WRITING TO JSON', err)
-            } else {
-                console.log('Success')
-            }
-        })
+        updateJSON();
 
         // Send the latest todos to the client
         io.emit('new', DB[DB.length-1]);
     });
 
     client.on('remove', (item) => {
-        
+        for(var i = 0; i < DB.length; i++) {
+            if (DB[i].title === item.title) {
+              DB.splice(i, 1);
+            }
+        }
+        updateJSON();
+        reloadTodos();
     })
 
     // Send the DB downstream on connect
